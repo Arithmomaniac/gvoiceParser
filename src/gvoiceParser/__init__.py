@@ -4,10 +4,10 @@ if __name__ == "__main__":
     import sys
      
     
-    path = sys.argv[1];
+    path = sys.argv[1]
     for fl in os.listdir(path):
-        print fl
-        gvoiceParser.Parser.process_file(os.path.join(path, fl))
+        if (fl.endswith(".html")):
+            print gvoiceParser.Parser.process_file(os.path.join(path, fl)).dump()
         
             
         
