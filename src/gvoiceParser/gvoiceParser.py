@@ -183,7 +183,8 @@ class Audio:
         audio_obj = cls()
         audio_obj.contact = Contact.from_node(node)
         audio_obj.duration = ParseTools.parse_time(node.findtext(Parser.as_xhtml('./abbr[@class="duration"]')))
-        audio_obj.date = ParseTools.parse_date(node.find(Parser.as_xhtml('./abbr[@class="published"]')).attrib["title"]) - datetime.timedelta(0, audio_obj.duration)
+        #recording timestamp determined by end of recording, not beginning as one would expect
+        audio_obj.date = ParseTools.parse_date(node.find(Parser.as_xhtml('./abbr[@class="published"]')).attrib["title"])  - audio_obj.duration
         descriptionNode = node.find(Parser.as_xhtml('./span[@class="description"]'))
         if descriptionNode and descriptionNode.findtext(Parser.as_xhtml('./span[@class="full-text"]')):
             #!!! FIX: html decode
@@ -231,15 +232,14 @@ class ParseTools:
         return returntime.replace(tzinfo = None)
 
     @staticmethod
-    #!!! FEATURE: use timespan instead?
     def parse_time (timestring):
-        '''Parses a duration time-string/tag into the number of seconds it encodes'''
+        '''Parses a duration time-string/tag into a timedelta object'''
         timestringmatch = re.search('(\d\d+):(\d\d):(\d\d)', timestring)
-        seconds = 0
-        seconds += int(timestringmatch.group(3))
-        seconds += int(timestringmatch.group(2)) * 60
-        seconds += int(timestringmatch.group(1)) * 3600
-        return seconds
+        return datetime.timedelta (
+            seconds = int(timestringmatch.group(3)),
+            minutes = int(timestringmatch.group(2)),
+            hours   = int(timestringmatch.group(1))
+        )
 
     ##------------------------------------
 
