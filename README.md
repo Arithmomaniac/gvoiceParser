@@ -4,8 +4,8 @@
 
 The gvoiceParser project aims to make the thousands of tiny files generated from [Google Voice Takeout][1] more useful. This effort consists of three parts:
 
- 1. A Python library for interpreting the HTML files *(mostly working)*
- 2. A SQLite database containing the contents of all the HTML files
+ 1. A Python library for interpreting the HTML files *working!*
+ 2. A SQLite database containing the contents of all the HTML files *coming soon*
  3. A CSV generator based on the SQLite database.
 
 gvoiceParser is a rewrite of my previous [googlevoice-to-sqlite][2] script. Ultimately, gvoiceParser will have feature parity with googlevoice-to-sqlite with more pythonic syntax and packaging.
