@@ -7,7 +7,7 @@ if __name__ == "__main__":
     path = sys.argv[1]
     for fl in os.listdir(path):
         if (fl.endswith(".html")):
-            print gvoiceParser.Parser.process_file(os.path.join(path, fl)).dump()
+            print gvoiceParser.Parser.process_file(os.path.join(path, fl))
         
             
         
